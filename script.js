@@ -1,64 +1,40 @@
-// === ПЕРЕКЛЮЧЕНИЕ ТЕМ ===
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = themeToggle.querySelector('.theme-icon');
-
-function setTheme(theme) {
-    if (theme === 'dark') {
-        document.body.classList.add('dark-theme');
-        themeIcon.textContent = '☀️';
-    } else {
-        document.body.classList.remove('dark-theme');
-        themeIcon.textContent = '🌙';
-    }
-    localStorage.setItem('theme', theme);
-}
-
-const savedTheme = localStorage.getItem('theme') || 'light';
-setTheme(savedTheme);
-
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-});
-
-// === ПЛАВНАЯ ПРОКРУТКА ===
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-            // === ПЕРЕКЛЮЧЕНИЕ ТЁМНОЙ/СВЕТЛОЙ ТЕМЫ ===
+// === ПЕРЕКЛЮЧЕНИЕ ТЁМНОЙ/СВЕТЛОЙ ТЕМЫ ===
 (function() {
+    // Находим кнопку переключения темы
     const themeToggle = document.getElementById('themeToggle');
     if (!themeToggle) return;
 
+    // Ищем иконку внутри кнопки
     const themeIcon = themeToggle.querySelector('.theme-icon') || themeToggle;
 
+    // Функция установки темы
     function setTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-theme');
-            themeIcon.textContent = '☀️';
+            if (themeIcon) themeIcon.textContent = '☀️';
         } else {
             document.body.classList.remove('dark-theme');
-            themeIcon.textContent = '🌙';
+            if (themeIcon) themeIcon.textContent = '🌙';
         }
+        // Сохраняем выбор пользователя в localStorage
         localStorage.setItem('theme', theme);
     }
 
+    // При загрузке проверяем, что сохранено в localStorage
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 
+    // Обработчик клика по кнопке
     themeToggle.addEventListener('click', function(e) {
         e.preventDefault();
         const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
     });
+
 })();
 
-// === ПЛАВНАЯ ПРОКРУТКА ===
+// === ПЛАВНАЯ ПРОКРУТКА ДЛЯ ЯКОРНЫХ ССЫЛОК ===
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
         const target = document.querySelector(this.getAttribute('href'));
@@ -69,9 +45,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     });
 });
 
+// === ПРИВЕТСТВИЕ В КОНСОЛИ ===
 console.log('⚖️ ПравоФин — экосистема для юриспруденции, бухгалтерии и финансов');
-        }
-    });
-});
-
-console.log('⚖️ ПравоФин — экосистема для юриспруденции, бухгалтерии и финансов');
+console.log('🌙 Нажмите на иконку луны/солнца в шапке, чтобы переключить тему.');
