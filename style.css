@@ -594,6 +594,49 @@ body.dark-theme .theme-toggle:hover {
     background: rgba(102, 187, 106, 0.12);
 }
 
+/* ===== КНОПКИ В ТЁМНОЙ ТЕМЕ (ЗЕЛЁНЫЕ) ===== */
+body.dark-theme .btn-primary {
+    background: #66BB6A;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(102, 187, 106, 0.3);
+}
+
+body.dark-theme .btn-primary:hover {
+    background: #4CAF50;
+    box-shadow: 0 8px 32px rgba(102, 187, 106, 0.4);
+}
+
+body.dark-theme .btn-secondary {
+    color: #EAEEF5;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-theme .btn-secondary:hover {
+    border-color: #66BB6A;
+    color: #66BB6A;
+}
+
+body.dark-theme .btn-plan {
+    color: #EAEEF5;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.dark-theme .btn-plan:hover {
+    background: #66BB6A;
+    border-color: #66BB6A;
+    color: #fff;
+}
+
+body.dark-theme .btn-plan.primary {
+    background: #66BB6A;
+    border-color: #66BB6A;
+    color: #fff;
+}
+
+body.dark-theme .btn-plan.primary:hover {
+    background: #4CAF50;
+}
+
 body.dark-theme .hero {
     background: #0A0A0F;
 }
@@ -694,25 +737,6 @@ body.dark-theme .plan-card .price small {
 
 body.dark-theme .plan-card.popular {
     border-color: #66BB6A;
-}
-
-body.dark-theme .btn-plan {
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.08);
-}
-
-body.dark-theme .btn-plan:hover {
-    background: #66BB6A;
-    border-color: #66BB6A;
-}
-
-body.dark-theme .btn-plan.primary {
-    background: #66BB6A;
-    border-color: #66BB6A;
-}
-
-body.dark-theme .btn-plan.primary:hover {
-    background: #4CAF50;
 }
 
 body.dark-theme .footer {
