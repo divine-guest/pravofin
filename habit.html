@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Копилка — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            background: #f9fbfa;
+            padding: 20px;
+            border-radius: 16px;
+        }
+        .calendar-grid .day-header {
+            text-align: center;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+        .calendar-grid .day {
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            background: #f0f0f0;
+            color: #1a1a2e;
+            transition: 0.2s;
+        }
+        .calendar-grid .day.marked {
+            background: #4CAF50;
+            color: #fff;
+        }
+        .calendar-grid .day.empty {
+            visibility: hidden;
+        }
+        .habit-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .habit-actions button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .habit-actions .btn-save {
+            background: #4CAF50;
+            color: #fff;
+        }
+        .habit-actions .btn-save:hover {
+            background: #388E3C;
+        }
+        .habit-actions .btn-read {
+            background: #2196F3;
+            color: #fff;
+        }
+        .habit-actions .btn-read:hover {
+            background: #1976D2;
+        }
+        .habit-actions .btn-check {
+            background: #FF9800;
+            color: #fff;
+        }
+        .habit-actions .btn-check:hover {
+            background: #F57C00;
+        }
+        .stats {
+            margin-top: 20px;
+            text-align: center;
+            background: #f0f4f0;
+            padding: 16px;
+            border-radius: 12px;
+        }
+        .stats span {
+            font-weight: 700;
+            color: #4CAF50;
+        }
+        body.dark-theme .calendar-grid {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        body.dark-theme .calendar-grid .day {
+            background: rgba(255, 255, 255, 0.06);
+            color: #eee;
+        }
+        body.dark-theme .calendar-grid .day.marked {
+            background: #66BB6A;
+            color: #fff;
+        }
+        body.dark-theme .stats {
+            background: rgba(255, 255, 255, 0.04);
+            color: #a0a8b8;
+        }
+        body.dark-theme .stats span {
+            color: #66BB6A;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="habit.html" class="active">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>📅 Копилка</h1>
+            <p class="subtitle">Отмечай каждый день, когда ты сделал шаг к финансовой свободе</p>
+
+            <div style="max-width:700px;margin:0 auto;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                    <button onclick="prevMonth()" class="btn-secondary" style="padding:8px 20px;">←</button>
+                    <h2 id="monthDisplay" style="font-size:24px;margin:0;"></h2>
+                    <button onclick="nextMonth()" class="btn-secondary" style="padding:8px 20px;">→</button>
+                </div>
+
+                <div class="calendar-grid" id="calendar">
+                    <div class="day-header">Пн</div>
+                    <div class="day-header">Вт</div>
+                    <div class="day-header">Ср</div>
+                    <div class="day-header">Чт</div>
+                    <div class="day-header">Пт</div>
+                    <div class="day-header">Сб</div>
+                    <div class="day-header">Вс</div>
+                </div>
+
+                <div class="habit-actions">
+                    <button class="btn-save" onclick="markToday('saved')">💰 Отложил деньги</button>
+                    <button class="btn-read" onclick="markToday('read')">📖 Прочитал статью</button>
+                    <button class="btn-check" onclick="markToday('checked')">✅ Проверил договор</button>
+                </div>
+
+                <div class="stats">
+                    <p>🔥 Твой стрейк: <span id="streak">0</span> дней подряд</p>
+                    <p>📊 Всего отметок: <span id="totalMarks">0</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div><p class="footer-logo">⚖️ ПравоФин</p><p>Юриспруденция, Бухгалтерия, Финансы</p></div>
+            <nav class="footer-nav">
+                <a href="index.html">Главная</a>
+                <a href="habit.html">Копилка</a>
+                <a href="games.html">Игры</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="b2b.html">Для бизнеса</a>
+                <a href="chat.html">AI-консультант</a>
+            </nav>
+            <div class="footer-contacts">
+                <a href="mailto:info@pravofin.ru">✉️ info@pravofin.ru</a>
+                <a href="#">📱 Telegram-канал</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 ПравоФин. Все права защищены.</p>
+            <p class="footer-ai">Сайт работает на AI-агентах 🧠</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        function getHabits() {
+            return JSON.parse(localStorage.getItem('habits') || '{}');
+        }
+
+        function saveHabits(habits) {
+            localStorage.setItem('habits', JSON.stringify(habits));
+        }
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            const monthDisplay = document.getElementById('monthDisplay');
+            const habits = getHabits();
+
+            const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+            monthDisplay.textContent = `${months[currentMonth]} ${currentYear}`;
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Удаляем старые дни, оставляя только заголовки (первые 7 элементов)
+            while (calendar.children.length > 7) {
+                calendar.removeChild(calendar.lastChild);
+            }
+
+            const startDay = firstDay === 0 ? 6 : firstDay - 1;
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'day empty';
+                calendar.appendChild(empty);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                const key = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                cell.className = `day${habits[key] ? ' marked' : ''}`;
+                cell.textContent = habits[key] ? `✅ ${day}` : day;
+                cell.onclick = () => toggleHabit(key, cell);
+                calendar.appendChild(cell);
+            }
+
+            updateStats();
+        }
+
+        function toggleHabit(key, cell) {
+            const habits = getHabits();
+            if (habits[key]) {
+                delete habits[key];
+                cell.className = 'day';
+                cell.textContent = cell.textContent.replace('✅ ', '');
+            } else {
+                habits[key] = true;
+                cell.className = 'day marked';
+                cell.textContent = `✅ ${cell.textContent}`;
+            }
+            saveHabits(habits);
+            updateStats();
+        }
+
+        function markToday(action) {
+            const today = new Date();
+            const key = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+            const habits = getHabits();
+            habits[key] = true;
+            saveHabits(habits);
+            renderCalendar();
+        }
+
+        function updateStats() {
+            const habits = getHabits();
+            const total = Object.keys(habits).length;
+            document.getElementById('totalMarks').textContent = total;
+
+            let streak = 0;
+            const today = new Date();
+            for (let i = 0; i < 365; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+                if (habits[key]) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            document.getElementById('streak').textContent = streak;
+        }
+
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        renderCalendar();
+    </script>
+</body>
+</html>

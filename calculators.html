@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Калькуляторы — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="calculators.html" class="active">🧮 Калькуляторы</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>🧮 Калькуляторы</h1>
+            <p class="subtitle">Быстрые расчёты для финансовых и налоговых решений</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;">
+                <div style="background:#f9fbfa;padding:24px;border-radius:16px;">
+                    <h3 style="margin-bottom:12px;">💰 Налоговый калькулятор</h3>
+                    <p style="color:#555;font-size:14px;margin-bottom:12px;">Рассчитай налог на доход</p>
+                    <input type="number" id="incomeInput" placeholder="Сумма дохода" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:8px;" />
+                    <select id="taxRate" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px;">
+                        <option value="0.13">НДФЛ 13%</option>
+                        <option value="0.06">УСН 6%</option>
+                        <option value="0.20">НДС 20%</option>
+                    </select>
+                    <button onclick="calculateTax()" class="btn-primary" style="width:100%;">Рассчитать</button>
+                    <div id="taxResult" style="margin-top:12px;font-weight:600;font-size:18px;"></div>
+                </div>
+
+                <div style="background:#f9fbfa;padding:24px;border-radius:16px;">
+                    <h3 style="margin-bottom:12px;">🏦 Кредитный калькулятор</h3>
+                    <p style="color:#555;font-size:14px;margin-bottom:12px;">Рассчитай ежемесячный платёж</p>
+                    <input type="number" id="loanAmount" placeholder="Сумма кредита" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:8px;" />
+                    <input type="number" id="loanRate" placeholder="Годовая ставка (%)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:8px;" />
+                    <input type="number" id="loanTerm" placeholder="Срок (месяцев)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:12px;" />
+                    <button onclick="calculateLoan()" class="btn-primary" style="width:100%;">Рассчитать</button>
+                    <div id="loanResult" style="margin-top:12px;font-weight:600;font-size:18px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div><p class="footer-logo">⚖️ ПравоФин</p><p>Юриспруденция, Бухгалтерия, Финансы</p></div>
+            <nav class="footer-nav">
+                <a href="index.html">Главная</a>
+                <a href="calculators.html">Калькуляторы</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="habit.html">Копилка</a>
+                <a href="games.html">Игры</a>
+                <a href="b2b.html">Для бизнеса</a>
+                <a href="chat.html">AI-консультант</a>
+            </nav>
+            <div class="footer-contacts">
+                <a href="mailto:info@pravofin.ru">✉️ info@pravofin.ru</a>
+                <a href="#">📱 Telegram-канал</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 ПравоФин. Все права защищены.</p>
+            <p class="footer-ai">Сайт работает на AI-агентах 🧠</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('incomeInput').value);
+            const rate = parseFloat(document.getElementById('taxRate').value);
+            if (isNaN(income)) { document.getElementById('taxResult').textContent = 'Введите сумму дохода'; return; }
+            document.getElementById('taxResult').textContent = `💰 Налог: ${(income * rate).toFixed(2)} ₽`;
+        }
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('loanRate').value) / 100 / 12;
+            const months = parseInt(document.getElementById('loanTerm').value);
+            if (isNaN(amount) || isNaN(rate) || isNaN(months)) {
+                document.getElementById('loanResult').textContent = 'Заполните все поля';
+                return;
+            }
+            const payment = amount * (rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
+            document.getElementById('loanResult').textContent = `📊 Ежемесячный платёж: ${payment.toFixed(2)} ₽`;
+        }
+    </script>
+</body>
+</html>

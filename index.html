@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ПравоФин — Юриспруденция, Бухгалтерия, Финансы</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- ХЕДЕР -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ <span>ПравоФин</span></a>
+            <nav class="nav">
+                <a href="index.html" class="active">Главная</a>
+                <a href="articles.html">Статьи</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="habit.html">Копилка</a>
+                <a href="games.html">Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+        </div>
+    </header>
+
+    <!-- ГЕРОЙ -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="badge">🔥 Экосистема для финансов и права</span>
+                <h1>Всё о <span class="highlight">юриспруденции, бухгалтерии</span> и финансах в одном месте</h1>
+                <p>Бесплатные консультации, игры, календарь привычек, калькуляторы и платная подписка с личным специалистом.</p>
+                <div class="hero-buttons">
+                    <a href="chat.html" class="btn-primary">Попробовать AI-консультанта</a>
+                    <a href="#features" class="btn-secondary">Смотреть все функции →</a>
+                </div>
+                <div class="hero-stats">
+                    <div><span>10+</span><small>инструментов</small></div>
+                    <div><span>500+</span><small>пользователей</small></div>
+                    <div><span>4.9</span><small>★ рейтинг</small></div>
+                </div>
+            </div>
+            <div>
+                <div class="demo-chat">
+                    <div class="demo-header">🤖 Бесплатный AI-юрист</div>
+                    <div class="demo-body">
+                        <p class="msg bot">Здравствуйте! Я помогу вам с налоговыми и юридическими вопросами. Что вас интересует?</p>
+                        <p class="msg user">Какой налог у самозанятого?</p>
+                        <p class="msg bot">У самозанятых налог 4% при работе с физлицами и 6% с юрлицами. Нужно подробнее?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КАРТОЧКИ -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Все возможности</h2>
+            <p class="section-subtitle">Инструменты для финансовой и юридической грамотности</p>
+            <div class="card-grid">
+                <a href="calculators.html" class="card">
+                    <span class="icon">🧮</span>
+                    <h3>Калькуляторы</h3>
+                    <p>Налоговый, кредитный — считай в один клик</p>
+                </a>
+                <a href="games.html" class="card">
+                    <span class="icon">🎮</span>
+                    <h3>Мини-игры</h3>
+                    <p>Учись через игру: налоговый тетрис, юрдетектив</p>
+                </a>
+                <a href="habit.html" class="card">
+                    <span class="icon">📅</span>
+                    <h3>Календарь привычек</h3>
+                    <p>Отмечай каждый день, когда отложил деньги</p>
+                </a>
+                <a href="chat.html" class="card">
+                    <span class="icon">🤖</span>
+                    <h3>AI-консультант</h3>
+                    <p>Бесплатные ответы на вопросы по налогам и праву</p>
+                </a>
+                <a href="caseclub.html" class="card">
+                    <span class="icon">📂</span>
+                    <h3>Кейс-клуб</h3>
+                    <p>Решай реальные юридические кейсы</p>
+                </a>
+                <a href="checklist.html" class="card">
+                    <span class="icon">✅</span>
+                    <h3>Чек-листы</h3>
+                    <p>Пошаговые инструкции для бизнеса</p>
+                </a>
+                <a href="generator.html" class="card">
+                    <span class="icon">📄</span>
+                    <h3>Генератор документов</h3>
+                    <p>Составь договор или иск за 5 минут</p>
+                </a>
+                <a href="analyze.html" class="card">
+                    <span class="icon">🔍</span>
+                    <h3>Анализ договоров</h3>
+                    <p>Найди риски в любом договоре</p>
+                </a>
+                <a href="tax.html" class="card">
+                    <span class="icon">📊</span>
+                    <h3>Налоговый помощник</h3>
+                    <p>Рассчитай налоги и выбери оптимальный режим</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ТАРИФЫ -->
+    <section style="background:#F5F7F5;">
+        <div class="container">
+            <h2 class="section-title">Тарифы</h2>
+            <p class="section-subtitle">Выберите подходящий вариант</p>
+            <div class="pricing-grid">
+                <div class="plan-card">
+                    <h3>Бесплатный</h3>
+                    <div class="price">0 ₽</div>
+                    <ul>
+                        <li>✅ Все инструменты</li>
+                        <li>✅ AI-консультант</li>
+                        <li>✅ Игры и календарь</li>
+                        <li>❌ Личный юрист</li>
+                    </ul>
+                    <a href="chat.html" class="btn-plan">Начать</a>
+                </div>
+                <div class="plan-card popular">
+                    <div class="popular-badge">🔥 Оптимальный</div>
+                    <h3>Подписка</h3>
+                    <div class="price">2 500 ₽ <small>/мес</small></div>
+                    <ul>
+                        <li>✅ Всё из бесплатного</li>
+                        <li>✅ Личный юрист (чат)</li>
+                        <li>✅ Шаблоны документов</li>
+                        <li>✅ Налоговый календарь</li>
+                    </ul>
+                    <a href="#" class="btn-plan primary">Оформить</a>
+                </div>
+                <div class="plan-card">
+                    <h3>Для бизнеса</h3>
+                    <div class="price">15 000 ₽ <small>/мес</small></div>
+                    <ul>
+                        <li>✅ Всё из подписки</li>
+                        <li>✅ Полное юр. сопровождение</li>
+                        <li>✅ Бухгалтерский аутсорсинг</li>
+                        <li>✅ Финансовое планирование</li>
+                    </ul>
+                    <a href="b2b.html" class="btn-plan">Узнать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-logo">⚖️ <span>ПравоФин</span></div>
+            <nav class="footer-nav">
+                <a href="index.html">Главная</a>
+                <a href="articles.html">Статьи</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="habit.html">Копилка</a>
+                <a href="games.html">Игры</a>
+                <a href="b2b.html">Для бизнеса</a>
+                <a href="chat.html">AI-консультант</a>
+            </nav>
+            <div class="footer-contacts">
+                <a href="mailto:info@pravofin.ru">✉️ info@pravofin.ru</a>
+                <a href="#">📱 Telegram-канал</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 ПравоФин. Все права защищены.</p>
+            <p class="footer-ai">Сайт работает на AI-агентах 🧠</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chat-widget@latest/dist/chat-widget.min.js"></script>
+    <script>
+        ChatWidget.init({
+            botUrl: "https://ваш-бот.onrender.com/webhook",
+            title: "🤖 Бесплатный AI-юрист",
+            subtitle: "Спросите про налоги, право или финансы",
+            primaryColor: "#2E7D32",
+            position: "bottom-right",
+            welcomeMessage: "Здравствуйте! Я — бесплатный AI-консультант. Чем могу помочь?"
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

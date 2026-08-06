@@ -1,0 +1,749 @@
+/* ===== БАЗА ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #ffffff;
+    color: #1A1A2E;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== ХЕДЕР ===== */
+.header {
+    padding: 16px 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1A1A2E;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: #2E7D32;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav a {
+    color: #4A4A5A;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #2E7D32;
+}
+
+.nav a.active {
+    color: #2E7D32;
+}
+
+.nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #2E7D32;
+    border-radius: 2px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1.5px solid #2E7D32;
+    padding: 8px 20px;
+    border-radius: 40px;
+    color: #2E7D32 !important;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: #2E7D32;
+    color: #fff !important;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 50%;
+    transition: 0.2s;
+    color: #4A4A5A;
+}
+
+.theme-toggle:hover {
+    background: rgba(46, 125, 50, 0.08);
+}
+
+/* ===== КНОПКИ ===== */
+.btn-primary {
+    background: #2E7D32;
+    color: #fff;
+    padding: 14px 36px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.2);
+}
+
+.btn-primary:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(46, 125, 50, 0.3);
+}
+
+.btn-secondary {
+    color: #1A1A2E;
+    padding: 14px 36px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1.5px solid #E0E0E0;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    border-color: #2E7D32;
+    color: #2E7D32;
+}
+
+.btn-plan {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #1A1A2E;
+    border: 1.5px solid #E0E0E0;
+}
+
+.btn-plan:hover {
+    background: #2E7D32;
+    border-color: #2E7D32;
+    color: #fff;
+}
+
+.btn-plan.primary {
+    background: #2E7D32;
+    color: #fff;
+    border-color: #2E7D32;
+}
+
+.btn-plan.primary:hover {
+    background: #1B5E20;
+}
+
+/* ===== ГЕРОЙ ===== */
+.hero {
+    padding: 80px 0 60px;
+    background: #ffffff;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-block;
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: #1A1A2E;
+    letter-spacing: -1.5px;
+}
+
+.hero h1 .highlight {
+    color: #2E7D32;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #4A4A5A;
+    margin-bottom: 32px;
+    max-width: 480px;
+    line-height: 1.7;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 48px;
+}
+
+.hero-stats div {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-stats span {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1A1A2E;
+}
+
+.hero-stats small {
+    font-size: 14px;
+    color: #4A4A5A;
+    font-weight: 400;
+}
+
+/* ===== ДЕМО-ЧАТ ===== */
+.demo-chat {
+    background: #F5F7F5;
+    border-radius: 24px;
+    overflow: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #EEF0EE;
+}
+
+.demo-header {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1A1A2E;
+    background: #ffffff;
+    border-bottom: 1px solid #EEF0EE;
+}
+
+.demo-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.msg {
+    padding: 12px 16px;
+    border-radius: 16px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.msg.bot {
+    background: #ffffff;
+    align-self: flex-start;
+    color: #1A1A2E;
+    border: 1px solid #EEF0EE;
+}
+
+.msg.user {
+    background: #2E7D32;
+    color: #ffffff;
+    align-self: flex-end;
+}
+
+/* ===== СЕКЦИИ ===== */
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 800;
+    text-align: center;
+    color: #1A1A2E;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #4A4A5A;
+    margin-bottom: 48px;
+    font-size: 18px;
+}
+
+/* ===== КАРТОЧКИ (УСЛУГИ, ИГРЫ, СТАТЬИ) ===== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    border: 1px solid #EEF0EE;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.04);
+    border-color: #4CAF50;
+}
+
+.card .icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A1A2E;
+    margin-bottom: 6px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #4A4A5A;
+    line-height: 1.6;
+}
+
+.card .tag {
+    display: inline-block;
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* ===== ТАРИФЫ ===== */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.plan-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    text-align: center;
+    border: 1px solid #EEF0EE;
+    transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.04);
+}
+
+.plan-card.popular {
+    border-color: #2E7D32;
+    position: relative;
+}
+
+.plan-card.popular .popular-badge {
+    display: inline-block;
+    background: #2E7D32;
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.plan-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A1A2E;
+}
+
+.plan-card .price {
+    font-size: 34px;
+    font-weight: 800;
+    color: #2E7D32;
+    margin: 16px 0;
+}
+
+.plan-card .price small {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4A4A5A;
+}
+
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+.plan-card ul li {
+    padding: 8px 0;
+    color: #4A4A5A;
+    font-size: 14px;
+    border-bottom: 1px solid #F5F7F5;
+}
+
+.plan-card ul li:last-child {
+    border-bottom: none;
+}
+
+/* ===== ФУТЕР ===== */
+.footer {
+    border-top: 1px solid #EEF0EE;
+    padding: 32px 0;
+    background: #ffffff;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A1A2E;
+}
+
+.footer-logo span {
+    color: #2E7D32;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-nav a {
+    color: #4A4A5A;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+    color: #2E7D32;
+}
+
+.footer-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.footer-contacts a {
+    color: #4A4A5A;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.footer-contacts a:hover {
+    color: #2E7D32;
+}
+
+.footer-bottom {
+    border-top: 1px solid #F5F7F5;
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #4A4A5A;
+}
+
+.footer-ai {
+    color: #2E7D32;
+    font-weight: 500;
+}
+
+/* ===== ТЁМНАЯ ТЕМА ===== */
+body.dark-theme {
+    background: #0A0A0F;
+    color: #EAEEF5;
+}
+
+body.dark-theme .header {
+    background: rgba(10, 10, 15, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+body.dark-theme .logo {
+    color: #fff;
+}
+
+body.dark-theme .logo span {
+    color: #66BB6A;
+}
+
+body.dark-theme .nav a {
+    color: #B0B8C5;
+}
+
+body.dark-theme .nav a:hover,
+body.dark-theme .nav a.active {
+    color: #66BB6A;
+}
+
+body.dark-theme .nav a.active::after {
+    background: #66BB6A;
+}
+
+body.dark-theme .btn-outline {
+    border-color: #66BB6A;
+    color: #66BB6A !important;
+}
+
+body.dark-theme .btn-outline:hover {
+    background: #66BB6A;
+    color: #fff !important;
+}
+
+body.dark-theme .hero {
+    background: #0A0A0F;
+}
+
+body.dark-theme .hero h1 {
+    color: #fff;
+}
+
+body.dark-theme .hero p {
+    color: #B0B8C5;
+}
+
+body.dark-theme .badge {
+    background: rgba(102, 187, 106, 0.12);
+    color: #66BB6A;
+}
+
+body.dark-theme .hero-stats span {
+    color: #fff;
+}
+
+body.dark-theme .hero-stats small {
+    color: #B0B8C5;
+}
+
+body.dark-theme .demo-chat {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-theme .demo-header {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+body.dark-theme .msg.bot {
+    background: rgba(255, 255, 255, 0.06);
+    color: #EAEEF5;
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-theme .msg.user {
+    background: #66BB6A;
+}
+
+body.dark-theme .card {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-theme .card h3 {
+    color: #fff;
+}
+
+body.dark-theme .card p {
+    color: #B0B8C5;
+}
+
+body.dark-theme .card .tag {
+    background: rgba(102, 187, 106, 0.12);
+    color: #66BB6A;
+}
+
+body.dark-theme .plan-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-theme .plan-card h3 {
+    color: #fff;
+}
+
+body.dark-theme .plan-card ul li {
+    color: #B0B8C5;
+    border-bottom-color: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-theme .plan-card .price {
+    color: #66BB6A;
+}
+
+body.dark-theme .plan-card .price small {
+    color: #B0B8C5;
+}
+
+body.dark-theme .plan-card.popular {
+    border-color: #66BB6A;
+}
+
+body.dark-theme .btn-plan {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme .btn-plan:hover {
+    background: #66BB6A;
+    border-color: #66BB6A;
+}
+
+body.dark-theme .section-title {
+    color: #fff;
+}
+
+body.dark-theme .section-subtitle {
+    color: #B0B8C5;
+}
+
+body.dark-theme .footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    background: #0A0A0F;
+}
+
+body.dark-theme .footer-logo {
+    color: #fff;
+}
+
+body.dark-theme .footer-nav a {
+    color: #B0B8C5;
+}
+
+body.dark-theme .footer-nav a:hover {
+    color: #66BB6A;
+}
+
+body.dark-theme .footer-contacts a {
+    color: #B0B8C5;
+}
+
+body.dark-theme .footer-contacts a:hover {
+    color: #66BB6A;
+}
+
+body.dark-theme .footer-bottom {
+    border-top-color: rgba(255, 255, 255, 0.04);
+    color: #8890A0;
+}
+
+body.dark-theme .footer-ai {
+    color: #66BB6A;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 992px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .hero p {
+        max-width: 100%;
+    }
+    .hero-stats {
+        justify-content: center;
+    }
+    .hero-buttons {
+        justify-content: center;
+    }
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+    .hero h1 {
+        font-size: 32px;
+    }
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+}

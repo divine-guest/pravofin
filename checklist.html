@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Чек-листы — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="checklist.html" class="active">✅ Чек-листы</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>✅ Чек-листы</h1>
+            <p class="subtitle">Получите пошаговую инструкцию для любой задачи</p>
+
+            <div style="max-width:600px;margin:0 auto;background:#f9fbfa;padding:32px;border-radius:24px;">
+                <form id="checklistForm">
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Ваша задача</label>
+                        <select id="goal" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;">
+                            <option value="Открыть ИП">Открыть ИП</option>
+                            <option value="Сменить налоговый режим">Сменить налоговый режим</option>
+                            <option value="Заключить договор с поставщиком">Заключить договор с поставщиком</option>
+                            <option value="Сдать налоговую декларацию">Сдать налоговую декларацию</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;padding:14px;">✅ Сгенерировать чек-лист</button>
+                </form>
+
+                <div id="result" style="margin-top:24px;display:none;">
+                    <h3 style="margin-bottom:8px;">📋 Ваш чек-лист</h3>
+                    <div id="checklistContent" style="background:#fff;padding:20px;border-radius:12px;border:1px solid #ddd;white-space:pre-wrap;font-size:14px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const BACKEND_URL = "https://ваш-бэкенд.onrender.com";
+
+        document.getElementById('checklistForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            const contentDiv = document.getElementById('checklistContent');
+            resultDiv.style.display = 'block';
+            contentDiv.textContent = '⏳ Генерация...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/checklist`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ goal: document.getElementById('goal').value })
+                });
+                const data = await response.json();
+                contentDiv.textContent = data.checklist || 'Ошибка генерации';
+            } catch {
+                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+            }
+        });
+    </script>
+</body>
+</html>

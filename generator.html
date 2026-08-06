@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Генератор документов — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="generator.html" class="active">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>📄 Генератор юридических документов</h1>
+            <p class="subtitle">Заполните поля — ИИ составит готовый документ</p>
+
+            <div style="max-width:600px;margin:0 auto;background:#f9fbfa;padding:32px;border-radius:24px;">
+                <form id="docForm">
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Тип документа</label>
+                        <select id="docType" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;">
+                            <option value="Договор купли-продажи">Договор купли-продажи</option>
+                            <option value="Исковое заявление">Исковое заявление</option>
+                            <option value="Претензия">Претензия</option>
+                            <option value="Договор подряда">Договор подряда</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Сторона 1</label>
+                        <input type="text" id="party1" placeholder="ООО 'Ромашка'" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Сторона 2</label>
+                        <input type="text" id="party2" placeholder="ИП Иванов" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Сумма (₽)</label>
+                        <input type="number" id="amount" placeholder="100000" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Срок (дней)</label>
+                        <input type="number" id="term" placeholder="30" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;padding:14px;">🧠 Сгенерировать</button>
+                </form>
+
+                <div id="result" style="margin-top:24px;display:none;">
+                    <h3 style="margin-bottom:8px;">📄 Ваш документ</h3>
+                    <div id="docContent" style="background:#fff;padding:20px;border-radius:12px;border:1px solid #ddd;white-space:pre-wrap;font-size:14px;max-height:400px;overflow-y:auto;"></div>
+                    <button onclick="copyDoc()" class="btn-secondary" style="margin-top:12px;">📋 Копировать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const BACKEND_URL = "https://ваш-бэкенд.onrender.com";
+
+        document.getElementById('docForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            const contentDiv = document.getElementById('docContent');
+            resultDiv.style.display = 'block';
+            contentDiv.textContent = '⏳ Генерация...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        docType: document.getElementById('docType').value,
+                        party1: document.getElementById('party1').value,
+                        party2: document.getElementById('party2').value,
+                        amount: document.getElementById('amount').value,
+                        term: document.getElementById('term').value
+                    })
+                });
+                const data = await response.json();
+                contentDiv.textContent = data.document || 'Ошибка генерации';
+            } catch {
+                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+            }
+        });
+
+        function copyDoc() {
+            navigator.clipboard.writeText(document.getElementById('docContent').textContent)
+                .then(() => alert('📋 Скопировано!'));
+        }
+    </script>
+</body>
+</html>

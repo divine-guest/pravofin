@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Игры — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .game-card {
+            background: #f9fbfa;
+            padding: 32px;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .game-card:hover {
+            transform: translateY(-4px);
+            border-color: #4CAF50;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.04);
+        }
+        .game-card .icon { font-size: 48px; margin-bottom: 12px; }
+        .game-card h3 { font-size: 20px; margin-bottom: 8px; }
+        .game-card p { color: #555; font-size: 15px; }
+        .game-area {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f9fbfa;
+            padding: 32px;
+            border-radius: 24px;
+            display: none;
+        }
+        .game-area.active { display: block; }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+        .option-btn:hover { border-color: #4CAF50; background: #f0f4f0; }
+        .option-btn.correct { border-color: #4CAF50; background: #e8f5e9; }
+        .option-btn.wrong { border-color: #f44336; background: #ffebee; }
+        .game-result { margin-top: 16px; font-weight: 600; font-size: 18px; }
+        body.dark-theme .game-card {
+            background: rgba(255,255,255,0.02);
+            border-color: rgba(255,255,255,0.04);
+        }
+        body.dark-theme .game-card p { color: #a0a8b8; }
+        body.dark-theme .game-area { background: rgba(255,255,255,0.02); }
+        body.dark-theme .option-btn {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.06);
+            color: #fff;
+        }
+        body.dark-theme .option-btn:hover {
+            border-color: #66BB6A;
+            background: rgba(102,187,106,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="games.html" class="active">🎮 Игры</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>🎮 Мини-игры</h1>
+            <p class="subtitle">Учись, играя. Проверь свои знания в финансах, налогах и юриспруденции</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-bottom:40px;">
+                <div class="game-card" onclick="startGame('tax')">
+                    <div class="icon">📊</div>
+                    <h3>Налоговый тетрис</h3>
+                    <p>Распределяй доходы по правильным налоговым ставкам</p>
+                </div>
+                <div class="game-card" onclick="startGame('detective')">
+                    <div class="icon">🔍</div>
+                    <h3>Юридический детектив</h3>
+                    <p>Найди 5 ошибок в договоре за 60 секунд</p>
+                </div>
+                <div class="game-card" onclick="startGame('quiz')">
+                    <div class="icon">🧠</div>
+                    <h3>ФинЗарядка</h3>
+                    <p>Угадай финансовый термин по определению</p>
+                </div>
+            </div>
+
+            <div id="gameArea" class="game-area">
+                <div id="gameContent"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div><p class="footer-logo">⚖️ ПравоФин</p><p>Юриспруденция, Бухгалтерия, Финансы</p></div>
+            <nav class="footer-nav">
+                <a href="index.html">Главная</a>
+                <a href="games.html">Игры</a>
+                <a href="habit.html">Копилка</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="b2b.html">Для бизнеса</a>
+                <a href="chat.html">AI-консультант</a>
+            </nav>
+            <div class="footer-contacts">
+                <a href="mailto:info@pravofin.ru">✉️ info@pravofin.ru</a>
+                <a href="#">📱 Telegram-канал</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 ПравоФин. Все права защищены.</p>
+            <p class="footer-ai">Сайт работает на AI-агентах 🧠</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let score = 0;
+        let taxIndex = 0;
+        let quizIndex = 0;
+        let currentGame = null;
+
+        const quizData = [
+            { term: 'НДФЛ', definition: 'Налог на доходы физических лиц (13%)' },
+            { term: 'УСН', definition: 'Упрощённая система налогообложения' },
+            { term: 'НДС', definition: 'Налог на добавленную стоимость (20%)' },
+            { term: 'Акциз', definition: 'Косвенный налог на отдельные товары (алкоголь, табак)' },
+            { term: 'Патент', definition: 'Система налогообложения для ИП с фиксированной стоимостью' }
+        ];
+
+        const taxQuestions = [
+            { income: 'Зарплата', answer: '13%', options: ['13%', '20%', '6%', '0%'] },
+            { income: 'Дивиденды', answer: '13%', options: ['13%', '15%', '20%', '6%'] },
+            { income: 'Доход ИП на УСН', answer: '6%', options: ['6%', '13%', '20%', '0%'] },
+            { income: 'Продажа товаров (НДС)', answer: '20%', options: ['20%', '13%', '6%', '0%'] },
+            { income: 'Подарок от близкого родственника', answer: '0%', options: ['0%', '13%', '6%', '20%'] }
+        ];
+
+        function startGame(type) {
+            const area = document.getElementById('gameArea');
+            area.classList.add('active');
+            const content = document.getElementById('gameContent');
+            score = 0;
+            currentGame = type;
+
+            if (type === 'tax') {
+                taxIndex = 0;
+                content.innerHTML = `
+                    <h3>📊 Налоговый тетрис</h3>
+                    <p style="color:#555;">Выбери правильную налоговую ставку для дохода</p>
+                    <div id="taxQuestion"></div>
+                    <div id="taxOptions"></div>
+                    <div id="taxResult" class="game-result"></div>
+                    <button onclick="nextTaxQuestion()" class="btn-primary" style="margin-top:16px;">Следующий →</button>
+                `;
+                showTaxQuestion();
+            } else if (type === 'detective') {
+                content.innerHTML = `
+                    <h3>🔍 Юридический детектив</h3>
+                    <p style="color:#555;">Найди 5 ошибок в договоре. У тебя 60 секунд!</p>
+                    <div style="background:#fff;padding:20px;border-radius:12px;text-align:left;margin:16px 0;border:1px solid #ddd;">
+                        <p><strong>Договор купли-продажи</strong></p>
+                        <p>1. Настоящий договор заключен между ООО "Ромашка" и ИП Иванов.</p>
+                        <p>2. Сумма сделки: ___________</p>
+                        <p>3. Товар передается в течение ___________ с момента оплаты.</p>
+                        <p>4. Стороны подписали: __________</p>
+                        <p>5. Предмет договора: ___________</p>
+                    </div>
+                    <div id="detectiveResult" class="game-result"></div>
+                    <button onclick="checkDetective()" class="btn-primary">Проверить</button>
+                `;
+                setTimeout(() => {
+                    const result = document.getElementById('detectiveResult');
+                    if (result) {
+                        result.textContent = '⏰ Время вышло! Попробуй снова.';
+                        result.style.color = '#f44336';
+                    }
+                }, 60000);
+            } else if (type === 'quiz') {
+                quizIndex = 0;
+                content.innerHTML = `
+                    <h3>🧠 ФинЗарядка</h3>
+                    <p style="color:#555;">Угадай термин по его определению</p>
+                    <div id="quizQuestion"></div>
+                    <div id="quizOptions"></div>
+                    <div id="quizResult" class="game-result"></div>
+                    <button onclick="nextQuizQuestion()" class="btn-primary" style="margin-top:16px;">Следующий →</button>
+                `;
+                showQuizQuestion();
+            }
+        }
+
+        // === ТАКС ТЕТРИС ===
+        function showTaxQuestion() {
+            if (taxIndex >= taxQuestions.length) {
+                document.getElementById('taxQuestion').innerHTML = `<p style="font-size:20px;font-weight:700;color:#4CAF50;">🎉 Ты прошёл все уровни! Счёт: ${score}</p>`;
+                document.getElementById('taxOptions').innerHTML = '';
+                return;
+            }
+            const q = taxQuestions[taxIndex];
+            document.getElementById('taxQuestion').innerHTML = `<p style="font-size:18px;font-weight:600;">Какой налог на доход: <strong>"${q.income}"</strong>?</p>`;
+            document.getElementById('taxOptions').innerHTML = q.options.map(opt => `
+                <button class="option-btn" onclick="checkTaxAnswer('${opt}', '${q.answer}')">${opt}</button>
+            `).join('');
+            document.getElementById('taxResult').textContent = '';
+        }
+
+        function checkTaxAnswer(selected, correct) {
+            const result = document.getElementById('taxResult');
+            if (selected === correct) { score++; result.textContent = `✅ Правильно! +1 очко (${score}/${taxQuestions.length})`; result.style.color = '#4CAF50'; }
+            else { result.textContent = `❌ Неправильно. Правильный ответ: ${correct}`; result.style.color = '#f44336'; }
+            document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+        }
+
+        function nextTaxQuestion() { taxIndex++; showTaxQuestion(); }
+
+        // === КВИЗ ===
+        function showQuizQuestion() {
+            if (quizIndex >= quizData.length) {
+                document.getElementById('quizQuestion').innerHTML = `<p style="font-size:20px;font-weight:700;color:#4CAF50;">🎉 Отлично! Ты знаешь финансовые термины! Счёт: ${score}</p>`;
+                document.getElementById('quizOptions').innerHTML = '';
+                return;
+            }
+            const q = quizData[quizIndex];
+            document.getElementById('quizQuestion').innerHTML = `<p style="font-size:18px;font-weight:600;">Что означает термин: <strong>"${q.term}"</strong>?</p>`;
+            const options = quizData.map(item => item.definition).sort(() => Math.random() - 0.5);
+            document.getElementById('quizOptions').innerHTML = options.map(def => `
+                <button class="option-btn" onclick="checkQuizAnswer('${def}', '${q.definition}')">${def}</button>
+            `).join('');
+            document.getElementById('quizResult').textContent = '';
+        }
+
+        function checkQuizAnswer(selected, correct) {
+            const result = document.getElementById('quizResult');
+            if (selected === correct) { score++; result.textContent = `✅ Правильно! +1 очко (${score}/${quizData.length})`; result.style.color = '#4CAF50'; }
+            else { result.textContent = `❌ Неправильно. Правильный ответ: ${correct}`; result.style.color = '#f44336'; }
+            document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+        }
+
+        function nextQuizQuestion() { quizIndex++; showQuizQuestion(); }
+
+        // === ДЕТЕКТИВ ===
+        function checkDetective() {
+            const result = document.getElementById('detectiveResult');
+            result.textContent = '🔍 Ошибки: нет даты, нет суммы, нет срока, нет подписей, нет предмета. Вы нашли все 5! 🏆';
+            result.style.color = '#4CAF50';
+        }
+    </script>
+</body>
+</html>

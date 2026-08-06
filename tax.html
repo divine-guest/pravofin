@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Налоговый помощник — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html" class="active">📊 Налоги</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>📊 Налоговый помощник</h1>
+            <p class="subtitle">Рассчитайте налоги и выберите оптимальный режим</p>
+
+            <div style="max-width:600px;margin:0 auto;background:#f9fbfa;padding:32px;border-radius:24px;">
+                <form id="taxForm">
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Годовой доход (₽)</label>
+                        <input type="number" id="income" placeholder="1000000" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Годовые расходы (₽)</label>
+                        <input type="number" id="expenses" placeholder="500000" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Количество сотрудников</label>
+                        <input type="number" id="employees" placeholder="0" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;" />
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;padding:14px;">📊 Рассчитать</button>
+                </form>
+
+                <div id="result" style="margin-top:24px;display:none;">
+                    <h3 style="margin-bottom:8px;">📊 Результат</h3>
+                    <div id="taxContent" style="background:#fff;padding:20px;border-radius:12px;border:1px solid #ddd;white-space:pre-wrap;font-size:14px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const BACKEND_URL = "https://ваш-бэкенд.onrender.com";
+
+        document.getElementById('taxForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            const contentDiv = document.getElementById('taxContent');
+            resultDiv.style.display = 'block';
+            contentDiv.textContent = '⏳ Расчёт...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/tax`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        income: parseFloat(document.getElementById('income').value) || 0,
+                        expenses: parseFloat(document.getElementById('expenses').value) || 0,
+                        employees: parseInt(document.getElementById('employees').value) || 0
+                    })
+                });
+                const data = await response.json();
+                contentDiv.textContent = data.tax_advice || 'Ошибка расчёта';
+            } catch {
+                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+            }
+        });
+    </script>
+</body>
+</html>

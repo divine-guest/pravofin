@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кейс-клуб — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="caseclub.html" class="active">📂 Кейс-клуб</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>📂 Кейс-клуб</h1>
+            <p class="subtitle">Решай реальные юридические ситуации и учись на практике</p>
+
+            <div style="max-width:700px;margin:0 auto;">
+                <div style="background:#f9fbfa;padding:24px;border-radius:16px;margin-bottom:20px;">
+                    <h3 style="color:#4CAF50;">🔒 Кейс недели</h3>
+                    <p style="font-size:18px;font-weight:600;margin:12px 0;">У предпринимателя заблокировали счёт. Что делать?</p>
+                    <p style="color:#555;">Ситуация: ИП на УСН обнаружил, что его расчётный счёт заблокирован по решению налоговой. Причина — непредоставление декларации за прошлый год. До выяснения обстоятельств осталось 3 дня.</p>
+                    <p style="color:#555;margin-top:8px;"><strong>Вопрос:</strong> Какие действия должен предпринять ИП в первую очередь?</p>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                    <textarea id="caseAnswer" placeholder="Напишите ваше решение..." style="width:100%;padding:14px;border-radius:12px;border:1px solid #ddd;font-size:16px;min-height:120px;resize:vertical;"></textarea>
+                    <button onclick="submitCase()" class="btn-primary" style="padding:12px 30px;">Отправить решение</button>
+                </div>
+
+                <div id="caseResult" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div><p class="footer-logo">⚖️ ПравоФин</p><p>Юриспруденция, Бухгалтерия, Финансы</p></div>
+            <nav class="footer-nav">
+                <a href="index.html">Главная</a>
+                <a href="caseclub.html">Кейс-клуб</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="habit.html">Копилка</a>
+                <a href="games.html">Игры</a>
+                <a href="b2b.html">Для бизнеса</a>
+                <a href="chat.html">AI-консультант</a>
+            </nav>
+            <div class="footer-contacts">
+                <a href="mailto:info@pravofin.ru">✉️ info@pravofin.ru</a>
+                <a href="#">📱 Telegram-канал</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 ПравоФин. Все права защищены.</p>
+            <p class="footer-ai">Сайт работает на AI-агентах 🧠</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function submitCase() {
+            const answer = document.getElementById('caseAnswer').value.trim();
+            const result = document.getElementById('caseResult');
+            if (!answer) { result.innerHTML = '<p style="color:#f44336;">Пожалуйста, напишите ваше решение.</p>'; return; }
+            result.innerHTML = `
+                <div style="background:#e8f5e9;padding:16px;border-radius:12px;">
+                    <p style="color:#2e7d32;font-weight:600;">✅ Ваше решение отправлено!</p>
+                    <p style="color:#555;margin-top:8px;">Правильный ответ: ИП должен немедленно подать декларацию, даже если она будет нулевой, и направить в налоговую пояснительную записку. Затем дождаться разблокировки счёта.</p>
+                    <p style="color:#555;margin-top:8px;">🏆 Вы получаете бейдж «Юридический детектив»!</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
