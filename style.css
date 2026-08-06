@@ -11,6 +11,7 @@ body {
     color: #1A1A2E;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -29,6 +30,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .header-inner {
@@ -43,6 +45,7 @@ body {
     color: #1A1A2E;
     text-decoration: none;
     letter-spacing: -0.5px;
+    transition: color 0.3s ease;
 }
 
 .logo span {
@@ -106,7 +109,7 @@ body {
     cursor: pointer;
     padding: 6px 10px;
     border-radius: 50%;
-    transition: 0.2s;
+    transition: background 0.2s ease;
     color: #4A4A5A;
 }
 
@@ -186,6 +189,7 @@ body {
 .hero {
     padding: 80px 0 60px;
     background: #ffffff;
+    transition: background 0.3s ease;
 }
 
 .hero-grid {
@@ -205,6 +209,7 @@ body {
     font-weight: 600;
     letter-spacing: 0.3px;
     margin-bottom: 20px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .hero h1 {
@@ -214,6 +219,7 @@ body {
     margin-bottom: 16px;
     color: #1A1A2E;
     letter-spacing: -1.5px;
+    transition: color 0.3s ease;
 }
 
 .hero h1 .highlight {
@@ -226,6 +232,7 @@ body {
     margin-bottom: 32px;
     max-width: 480px;
     line-height: 1.7;
+    transition: color 0.3s ease;
 }
 
 .hero-buttons {
@@ -249,12 +256,14 @@ body {
     font-size: 28px;
     font-weight: 800;
     color: #1A1A2E;
+    transition: color 0.3s ease;
 }
 
 .hero-stats small {
     font-size: 14px;
     color: #4A4A5A;
     font-weight: 400;
+    transition: color 0.3s ease;
 }
 
 /* ===== ДЕМО-ЧАТ ===== */
@@ -265,6 +274,7 @@ body {
     max-width: 400px;
     margin: 0 auto;
     border: 1px solid #EEF0EE;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .demo-header {
@@ -274,6 +284,7 @@ body {
     color: #1A1A2E;
     background: #ffffff;
     border-bottom: 1px solid #EEF0EE;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .demo-body {
@@ -289,6 +300,7 @@ body {
     max-width: 85%;
     font-size: 14px;
     line-height: 1.5;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .msg.bot {
@@ -316,6 +328,7 @@ section {
     color: #1A1A2E;
     letter-spacing: -1px;
     margin-bottom: 8px;
+    transition: color 0.3s ease;
 }
 
 .section-subtitle {
@@ -323,9 +336,10 @@ section {
     color: #4A4A5A;
     margin-bottom: 48px;
     font-size: 18px;
+    transition: color 0.3s ease;
 }
 
-/* ===== КАРТОЧКИ (УСЛУГИ, ИГРЫ, СТАТЬИ) ===== */
+/* ===== КАРТОЧКИ ===== */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -457,6 +471,7 @@ section {
     border-top: 1px solid #EEF0EE;
     padding: 32px 0;
     background: #ffffff;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .footer-inner {
@@ -487,7 +502,7 @@ section {
     color: #4A4A5A;
     text-decoration: none;
     font-size: 13px;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
 }
 
 .footer-nav a:hover {
@@ -504,6 +519,7 @@ section {
     color: #4A4A5A;
     text-decoration: none;
     font-size: 13px;
+    transition: color 0.2s ease;
 }
 
 .footer-contacts a:hover {
@@ -525,7 +541,10 @@ section {
     font-weight: 500;
 }
 
+/* ============================================================ */
 /* ===== ТЁМНАЯ ТЕМА ===== */
+/* ============================================================ */
+
 body.dark-theme {
     background: #0A0A0F;
     color: #EAEEF5;
@@ -567,12 +586,24 @@ body.dark-theme .btn-outline:hover {
     color: #fff !important;
 }
 
+body.dark-theme .theme-toggle {
+    color: #fff;
+}
+
+body.dark-theme .theme-toggle:hover {
+    background: rgba(102, 187, 106, 0.12);
+}
+
 body.dark-theme .hero {
     background: #0A0A0F;
 }
 
 body.dark-theme .hero h1 {
     color: #fff;
+}
+
+body.dark-theme .hero h1 .highlight {
+    color: #66BB6A;
 }
 
 body.dark-theme .hero p {
@@ -611,6 +642,14 @@ body.dark-theme .msg.bot {
 
 body.dark-theme .msg.user {
     background: #66BB6A;
+}
+
+body.dark-theme .section-title {
+    color: #fff;
+}
+
+body.dark-theme .section-subtitle {
+    color: #B0B8C5;
 }
 
 body.dark-theme .card {
@@ -667,12 +706,13 @@ body.dark-theme .btn-plan:hover {
     border-color: #66BB6A;
 }
 
-body.dark-theme .section-title {
-    color: #fff;
+body.dark-theme .btn-plan.primary {
+    background: #66BB6A;
+    border-color: #66BB6A;
 }
 
-body.dark-theme .section-subtitle {
-    color: #B0B8C5;
+body.dark-theme .btn-plan.primary:hover {
+    background: #4CAF50;
 }
 
 body.dark-theme .footer {
@@ -709,7 +749,10 @@ body.dark-theme .footer-ai {
     color: #66BB6A;
 }
 
+/* ============================================================ */
 /* ===== АДАПТИВ ===== */
+/* ============================================================ */
+
 @media (max-width: 992px) {
     .hero-grid {
         grid-template-columns: 1fr;
@@ -745,5 +788,8 @@ body.dark-theme .footer-ai {
     }
     .pricing-grid {
         grid-template-columns: 1fr;
+    }
+    .hero-stats {
+        gap: 24px;
     }
 }
