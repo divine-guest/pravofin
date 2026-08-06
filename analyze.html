@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Анализ договора — ПравоФин</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="generator.html">📄 Генератор</a>
+                <a href="analyze.html" class="active">🔍 Анализ</a>
+                <a href="tax.html">📊 Налоги</a>
+                <a href="habit.html">📅 Копилка</a>
+                <a href="games.html">🎮 Игры</a>
+                <a href="b2b.html" class="btn-outline">Для бизнеса</a>
+                <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">🌙</span></button>
+        </div>
+    </header>
+
+    <section style="padding:40px 0 60px;">
+        <div class="container">
+            <h1>🔍 Анализ договора</h1>
+            <p class="subtitle">Вставьте текст договора — ИИ найдёт риски</p>
+
+            <div style="max-width:600px;margin:0 auto;background:#f9fbfa;padding:32px;border-radius:24px;">
+                <form id="analyzeForm">
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600;">Текст договора</label>
+                        <textarea id="contractText" rows="8" placeholder="Вставьте текст договора..." style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:4px;resize:vertical;"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;padding:14px;">🔍 Проанализировать</button>
+                </form>
+
+                <div id="result" style="margin-top:24px;display:none;">
+                    <h3 style="margin-bottom:8px;">📊 Отчёт об анализе</h3>
+                    <div id="analysisContent" style="background:#fff;padding:20px;border-radius:12px;border:1px solid #ddd;white-space:pre-wrap;font-size:14px;max-height:400px;overflow-y:auto;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const BACKEND_URL = "https://ваш-бэкенд.onrender.com";
+
+        document.getElementById('analyzeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            const contentDiv = document.getElementById('analysisContent');
+            resultDiv.style.display = 'block';
+            contentDiv.textContent = '⏳ Анализ...';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/analyze`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: document.getElementById('contractText').value })
+                });
+                const data = await response.json();
+                contentDiv.textContent = data.analysis || 'Ошибка анализа';
+            } catch {
+                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+            }
+        });
+    </script>
+</body>
+</html>
