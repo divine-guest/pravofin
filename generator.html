@@ -92,16 +92,20 @@ document.getElementById('docForm').addEventListener('submit', async function(e) 
         });
         const data = await response.json();
         contentDiv.textContent = data.document || 'Ошибка генерации';
-    } catch {
+    } catch (error) {
+        console.error('Ошибка:', error);
         contentDiv.textContent = '❌ Ошибка соединения с сервером';
     }
-
+});
 
 function copyDoc() {
-    navigator.clipboard.writeText(document.getElementById('docContent').textContent)
-        .then(() => alert('📋 Скопировано!'));
+    const content = document.getElementById('docContent').textContent;
+    navigator.clipboard.writeText(content).then(() => {
+        alert('📋 Скопировано!');
+    }).catch(() => {
+        alert('❌ Не удалось скопировать');
+    });
 }
-        }
     </script>
 </body>
 </html>
