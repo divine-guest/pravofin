@@ -47,25 +47,27 @@
     </section>
 
     <script>
-        const BACKEND_URL = "https://pravofin-backend.onrender.com";
+        const BACKEND_URL = "https://pravofin-backend-1.onrender.com";
 
-        document.getElementById('analyzeForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const resultDiv = document.getElementById('result');
-            const contentDiv = document.getElementById('analysisContent');
-            resultDiv.style.display = 'block';
-            contentDiv.textContent = '⏳ Анализ...';
+document.getElementById('analyzeForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const resultDiv = document.getElementById('result');
+    const contentDiv = document.getElementById('analysisContent');
+    resultDiv.style.display = 'block';
+    contentDiv.textContent = '⏳ Анализ...';
 
-            try {
-                const response = await fetch(`${BACKEND_URL}/analyze`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: document.getElementById('contractText').value })
-                });
-                const data = await response.json();
-                contentDiv.textContent = data.analysis || 'Ошибка анализа';
-            } catch {
-                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+    try {
+        const response = await fetch(`${BACKEND_URL}/analyze`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: document.getElementById('contractText').value })
+        });
+        const data = await response.json();
+        contentDiv.textContent = data.analysis || 'Ошибка анализа';
+    } catch {
+        contentDiv.textContent = '❌ Ошибка соединения с сервером';
+    }
+});
             }
         });
     </script>
