@@ -53,25 +53,27 @@
     </section>
 
     <script>
-        const BACKEND_URL = "https://pravofin-backend.onrender.com";
+        const BACKEND_URL = "https://pravofin-backend-1.onrender.com";
 
-        document.getElementById('checklistForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const resultDiv = document.getElementById('result');
-            const contentDiv = document.getElementById('checklistContent');
-            resultDiv.style.display = 'block';
-            contentDiv.textContent = '⏳ Генерация...';
+document.getElementById('checklistForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const resultDiv = document.getElementById('result');
+    const contentDiv = document.getElementById('checklistContent');
+    resultDiv.style.display = 'block';
+    contentDiv.textContent = '⏳ Генерация...';
 
-            try {
-                const response = await fetch(`${BACKEND_URL}/checklist`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ goal: document.getElementById('goal').value })
-                });
-                const data = await response.json();
-                contentDiv.textContent = data.checklist || 'Ошибка генерации';
-            } catch {
-                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+    try {
+        const response = await fetch(`${BACKEND_URL}/checklist`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ goal: document.getElementById('goal').value })
+        });
+        const data = await response.json();
+        contentDiv.textContent = data.checklist || 'Ошибка генерации';
+    } catch {
+        contentDiv.textContent = '❌ Ошибка соединения с сервером';
+    }
+});
             }
         });
     </script>
