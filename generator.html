@@ -101,50 +101,52 @@
     <script>
         const BACKEND_URL = "https://pravofin-backend-1.onrender.com";
 
-        document.getElementById('docForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        const form = document.getElementById('docForm');
+        const resultDiv = document.getElementById('result');
+        const contentDiv = document.getElementById('docContent');
 
-            const docType = document.getElementById('docType').value;
-            const party1 = document.getElementById('party1').value;
-            const party2 = document.getElementById('party2').value;
-            const amount = document.getElementById('amount').value;
-            const term = document.getElementById('term').value;
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-            const resultDiv = document.getElementById('result');
-            const contentDiv = document.getElementById('docContent');
+            const data = {
+                docType: document.getElementById('docType').value,
+                party1: document.getElementById('party1').value,
+                party2: document.getElementById('party2').value,
+                amount: document.getElementById('amount').value,
+                term: document.getElementById('term').value
+            };
+
             resultDiv.style.display = 'block';
             contentDiv.textContent = '⏳ Генерация...';
 
-            try {
-                const response = await fetch(BACKEND_URL + '/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        docType: docType,
-                        party1: party1,
-                        party2: party2,
-                        amount: amount,
-                        term: term
-                    })
-                });
-
-                const data = await response.json();
+            fetch(BACKEND_URL + '/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
                 contentDiv.textContent = data.document || 'Ошибка генерации';
-            } catch (error) {
+            })
+            .catch(function(error) {
                 console.error('Ошибка:', error);
                 contentDiv.textContent = '❌ Ошибка соединения с сервером';
-            }
+            });
         });
 
         function copyDoc() {
-            const content = document.getElementById('docContent').textContent;
-            navigator.clipboard.writeText(content).then(() => {
-                alert('📋 Скопировано!');
-            }).catch(() => {
-                alert('❌ Не удалось скопировать');
-            });
+            const text = document.getElementById('docContent').textContent;
+            navigator.clipboard.writeText(text)
+                .then(function() {
+                    alert('📋 Скопировано!');
+                })
+                .catch(function() {
+                    alert('❌ Не удалось скопировать');
+                });
         }
     </script>
 </body>
