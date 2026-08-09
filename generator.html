@@ -95,7 +95,7 @@ document.getElementById('docForm').addEventListener('submit', async function(e) 
     } catch {
         contentDiv.textContent = '❌ Ошибка соединения с сервером';
     }
-});
+
 
 function copyDoc() {
     navigator.clipboard.writeText(document.getElementById('docContent').textContent)
