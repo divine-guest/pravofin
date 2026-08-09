@@ -9,7 +9,7 @@
 <body>
     <header class="header">
         <div class="container header-inner">
-            <a href="index.html" class="logo">⚖️ ПравоФин</a>
+            <a href="index.html" class="logo">⚖️ <span>ПравоФин</span></a>
             <nav class="nav">
                 <a href="index.html">Главная</a>
                 <a href="generator.html" class="active">📄 Генератор</a>
@@ -17,6 +17,9 @@
                 <a href="tax.html">📊 Налоги</a>
                 <a href="habit.html">📅 Копилка</a>
                 <a href="games.html">🎮 Игры</a>
+                <a href="register.html">Регистрация</a>
+                <a href="login.html">Вход</a>
+                <a href="cabinet.html">👤 Кабинет</a>
                 <a href="b2b.html" class="btn-outline">Для бизнеса</a>
                 <a href="chat.html" class="btn-outline">💬 AI-консультант</a>
             </nav>
@@ -29,7 +32,7 @@
             <h1>📄 Генератор юридических документов</h1>
             <p class="subtitle">Заполните поля — ИИ составит готовый документ</p>
 
-            <div style="max-width:600px;margin:0 auto;background:#f9fbfa;padding:32px;border-radius:24px;">
+            <div style="max-width:600px;margin:0 auto;background:#F5F7F5;padding:32px;border-radius:24px;">
                 <form id="docForm">
                     <div style="margin-bottom:16px;">
                         <label style="font-weight:600;">Тип документа</label>
@@ -61,51 +64,78 @@
 
                 <div id="result" style="margin-top:24px;display:none;">
                     <h3 style="margin-bottom:8px;">📄 Ваш документ</h3>
-                    <div id="docContent" style="background:#fff;padding:20px;border-radius:12px;border:1px solid #ddd;white-space:pre-wrap;font-size:14px;max-height:400px;overflow-y:auto;"></div>
+                    <div id="docContent" style="background:#ffffff;padding:20px;border-radius:12px;border:1px solid #ddd;white-space:pre-wrap;font-size:14px;max-height:400px;overflow-y:auto;"></div>
                     <button onclick="copyDoc()" class="btn-secondary" style="margin-top:12px;">📋 Копировать</button>
                 </div>
             </div>
         </div>
     </section>
 
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-logo">⚖️ <span>ПравоФин</span></div>
+            <nav class="footer-nav">
+                <a href="index.html">Главная</a>
+                <a href="generator.html">Генератор</a>
+                <a href="analyze.html">Анализ</a>
+                <a href="tax.html">Налоги</a>
+                <a href="habit.html">Копилка</a>
+                <a href="games.html">Игры</a>
+                <a href="register.html">Регистрация</a>
+                <a href="login.html">Вход</a>
+                <a href="cabinet.html">Кабинет</a>
+                <a href="b2b.html">Для бизнеса</a>
+                <a href="chat.html">AI-консультант</a>
+            </nav>
+            <div class="footer-contacts">
+                <a href="mailto:info@pravofin.ru">✉️ info@pravofin.ru</a>
+                <a href="#">📱 Telegram-канал</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 ПравоФин. Все права защищены.</p>
+            <p class="footer-ai">Сайт работает на AI-агентах 🧠</p>
+        </div>
+    </footer>
+
     <script>
         const BACKEND_URL = "https://pravofin-backend-1.onrender.com";
 
-document.getElementById('docForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const resultDiv = document.getElementById('result');
-    const contentDiv = document.getElementById('docContent');
-    resultDiv.style.display = 'block';
-    contentDiv.textContent = '⏳ Генерация...';
+        document.getElementById('docForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('result');
+            const contentDiv = document.getElementById('docContent');
+            resultDiv.style.display = 'block';
+            contentDiv.textContent = '⏳ Генерация...';
 
-    try {
-        const response = await fetch(`${BACKEND_URL}/generate`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                docType: document.getElementById('docType').value,
-                party1: document.getElementById('party1').value,
-                party2: document.getElementById('party2').value,
-                amount: document.getElementById('amount').value,
-                term: document.getElementById('term').value
-            })
+            try {
+                const response = await fetch(`${BACKEND_URL}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        docType: document.getElementById('docType').value,
+                        party1: document.getElementById('party1').value,
+                        party2: document.getElementById('party2').value,
+                        amount: document.getElementById('amount').value,
+                        term: document.getElementById('term').value
+                    })
+                });
+                const data = await response.json();
+                contentDiv.textContent = data.document || 'Ошибка генерации';
+            } catch (error) {
+                console.error('Ошибка:', error);
+                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+            }
         });
-        const data = await response.json();
-        contentDiv.textContent = data.document || 'Ошибка генерации';
-    } catch (error) {
-        console.error('Ошибка:', error);
-        contentDiv.textContent = '❌ Ошибка соединения с сервером';
-    }
-});
 
-function copyDoc() {
-    const content = document.getElementById('docContent').textContent;
-    navigator.clipboard.writeText(content).then(() => {
-        alert('📋 Скопировано!');
-    }).catch(() => {
-        alert('❌ Не удалось скопировать');
-    });
-}
+        function copyDoc() {
+            const content = document.getElementById('docContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('📋 Скопировано!');
+            }).catch(() => {
+                alert('❌ Не удалось скопировать');
+            });
+        }
     </script>
 </body>
 </html>
