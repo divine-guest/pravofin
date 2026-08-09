@@ -55,29 +55,31 @@
     </section>
 
     <script>
-        const BACKEND_URL = "https://pravofin-backend.onrender.com";
+        const BACKEND_URL = "https://pravofin-backend-1.onrender.com";
 
-        document.getElementById('taxForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const resultDiv = document.getElementById('result');
-            const contentDiv = document.getElementById('taxContent');
-            resultDiv.style.display = 'block';
-            contentDiv.textContent = '⏳ Расчёт...';
+document.getElementById('taxForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const resultDiv = document.getElementById('result');
+    const contentDiv = document.getElementById('taxContent');
+    resultDiv.style.display = 'block';
+    contentDiv.textContent = '⏳ Расчёт...';
 
-            try {
-                const response = await fetch(`${BACKEND_URL}/tax`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        income: parseFloat(document.getElementById('income').value) || 0,
-                        expenses: parseFloat(document.getElementById('expenses').value) || 0,
-                        employees: parseInt(document.getElementById('employees').value) || 0
-                    })
-                });
-                const data = await response.json();
-                contentDiv.textContent = data.tax_advice || 'Ошибка расчёта';
-            } catch {
-                contentDiv.textContent = '❌ Ошибка соединения с сервером';
+    try {
+        const response = await fetch(`${BACKEND_URL}/tax`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                income: parseFloat(document.getElementById('income').value) || 0,
+                expenses: parseFloat(document.getElementById('expenses').value) || 0,
+                employees: parseInt(document.getElementById('employees').value) || 0
+            })
+        });
+        const data = await response.json();
+        contentDiv.textContent = data.tax_advice || 'Ошибка расчёта';
+    } catch {
+        contentDiv.textContent = '❌ Ошибка соединения с сервером';
+    }
+});
             }
         });
     </script>
